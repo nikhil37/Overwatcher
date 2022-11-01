@@ -1,0 +1,77 @@
+<!-- Add issue form modal -->
+<div class="modal fade" id="add_issue_view" tabindex="-1" aria-labelledby="issue_title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="/add/issue" id="add_issue">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="issue_title">Add issue</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <div class="alert alert-success" id="success_msg_issue_add" style="display:none">Successfully added</div>
+        <div class="alert alert-danger" id="failure_msg_issue_add" style="display:none">Something went wrong</div>
+          <select name="tid" class="form-control">
+            <option>Select task</option>
+            {% for task in issuable_tasks %}
+              <option value="{{task.tid}}">{{task.content}}</option>
+            {% endfor %}
+          </select>
+          <br>
+          <!-- <select name="user" class="form-control">
+            <option>Assign to</option>
+            {% for user in users %}
+              <option value="{{user.id}}">{{user.username}}</option>
+            {% endfor %}
+          </select>
+          <br> -->
+          <input class="form-control" type="text" name="content" placeholder="Task description">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded',()=>{
+    var c =document.getElementById('add_issue');
+      c.onsubmit = (event) => {
+      event.preventDefault();
+      var data = "";
+      document.getElementById('success_msg_issue_add').style.display = 'none';
+      document.getElementById('failure_msg_issue_add').style.display = 'none';
+      f = Object.values(c);
+      for(i=0;i<f.length;++i)
+      {
+        data+=f[i].name+'='+f[i].value;
+        if(i != f.length - 1)
+          data+='&';
+      }
+      var x = new XMLHttpRequest();
+      x.open("POST",'/add/issue',false)
+      x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      x.withCredentials = true;
+      x.send(data);
+      if(x.status == 200)
+      {
+        //success
+        resp = JSON.parse(x.response);
+        for(i=0;i<f.length;++i)
+        {
+          f[i].value='';
+        }
+      }
+      if(resp['success'] == true)
+      {
+        document.getElementById('success_msg_issue_add').style.display = 'block';
+      }
+      else
+      {
+        document.getElementById('failure_msg_issue_add').style.display = 'block';
+      }
+    }
+  });
+</script>

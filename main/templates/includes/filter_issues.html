@@ -1,0 +1,39 @@
+<select onclick="filter_issue(this)" class="form-control">
+	<option value="all" selected>Sort by progress</option>
+	<option value="all">All</option>
+	<option value="completed">Resolved</option>
+	<option value="incomplete">Pending</option>
+</select>
+<script type="text/javascript">
+	function filter_issue(event) {
+		objs = document.getElementsByClassName('filterable_issues');
+		if (event.value != 'all') 
+		{
+			for(i=0;i<objs.length;++i)
+			{
+				if (event.value != objs[i].dataset['progress'])
+				{
+					objs[i].style.display = 'none';
+				}
+				else
+				{
+					objs[i].style.display = 'block';
+				}
+			}
+		}
+		else
+		{
+			for(i=0;i<objs.length;++i)
+			{
+				objs[i].style.display = 'block';
+			}
+
+		}
+	}
+	document.addEventListener('DOMContentLoaded',() => {
+		ops = document.getElementsByTagName('select');
+		console.log(ops.length);
+		// for(i=0;i<ops.length;++i)
+		// 	ops[i].click();
+	});
+</script>

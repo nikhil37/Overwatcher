@@ -1,0 +1,64 @@
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+        	<h2>Add a new project</h2>
+            <div class="card px-5 py-5" id="form1">
+                <form action="/add/project" method="POST" class="form-data">
+                	{% csrf_token %}
+                    <div class="forms-inputs mb-4"> 
+                    	<span>Title</span> 
+                    	<input autocomplete="off" type="text" class="form-control" name="title" required>
+                    </div>
+                    <div class="forms-inputs mb-4"> 
+                    	<span>Description</span> 
+                    	<textarea autocomplete="off" type="text" class="form-control" name="description" required></textarea>
+                    </div>
+		          <select name="head" class="form-control" required>
+		            <option>Assign to</option>
+		            {% for user in heads %}
+		              <option value="{{user.id}}">{{user.username}}</option>
+		            {% endfor %}
+		          </select>
+		          <br><br>
+                    <div class="mb-3"> <button type="submit" class="btn btn-dark w-100">Submit</button> </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+
+.card {
+    border: none;
+    height: 320px
+}
+
+.forms-inputs {
+    position: relative
+}
+
+.forms-inputs span {
+    position: absolute;
+    top: -18px;
+    left: 10px;
+    background-color: #fff;
+    padding: 5px 10px;
+    font-size: 15px
+}
+
+.forms-inputs input {
+    height: 50px;
+    border: 2px solid #eee
+}
+
+.forms-inputs input:focus {
+    box-shadow: none;
+    outline: none;
+    border: 2px solid #000
+}
+
+.btn {
+    height: 50px
+}
+
+</style>

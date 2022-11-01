@@ -1,0 +1,11 @@
+<h1>Invalidated users</h1>
+<br><hr><br>
+{% for user in unverified_users %}
+	<div class="card" style="height:60px;">
+		<div class="card-body" style="height:60px;background:#CCCCCC;border-radius:5px;">
+			<a href="#" data-bs-toggle="modal" data-bs-target="#user_v{{user.id}}">{{ user.first_name }} {{ user.last_name }}</a>
+		</div>
+	</div>
+	{% include 'admin_user.html' %}
+	<br>
+{% endfor %}

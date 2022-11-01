@@ -1,0 +1,55 @@
+{% extends 'base_layout.html' %}
+
+{% block body %}
+</div> <!-- To escape container -->
+{% if is_mobile %}
+<div id="main_navbar" class="d-flex flex-column mb-3 bd-highlight justify-content-center">
+{% else %}
+<div id="main_navbar" class="d-flex flex-row mb-3 bd-highlight justify-content-center">
+{% endif %}
+	<div id="menu_button_tasks" data-name="tasks" class="p-4 bd-hightlight" onclick="menu_clicked(this)"><a href="#" class="nav-link"><h4>Tasks</h4></a></div>
+	{% if is_mobile %}
+    	<br>
+	{% endif %}
+	<div id="menu_button_projects" data-name="projects" class="p-4 bd-hightlight" onclick="menu_clicked(this)"><a href="#" class="nav-link"><h4>Projects</h4></a></div>
+	{% if is_mobile %}
+    	<br>
+	{% endif %}
+	<div id="menu_button_issues" data-name="issues" class="p-4 bd-hightlight" onclick="menu_clicked(this)"><a href="#" class="nav-link"><h4>Issues</h4></a></div>
+</div>
+<div class="container" id="view_pane">
+	<div id="task_view" style="display: none;">
+		{% include 'tasks.html' %}
+	</div>
+	<div id="projects_view" style="display: none;">
+		{% include 'projects.html' %}
+	</div>
+	<div id="issues_view">
+		{% include 'issues.html' %}
+	</div>
+</div>
+<div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+	function menu_clicked(event) {
+		switch (event.dataset["name"]){
+			case "tasks":
+				document.getElementById('task_view').style.display = 'block';
+				document.getElementById('projects_view').style.display = 'none';
+				document.getElementById('issues_view').style.display = 'none';
+				break;
+			case "projects":
+				document.getElementById('task_view').style.display = 'none';
+				document.getElementById('projects_view').style.display = 'block';
+				document.getElementById('issues_view').style.display = 'none';
+				break;
+			case "issues":
+				document.getElementById('task_view').style.display = 'none';
+				document.getElementById('projects_view').style.display = 'none';
+				document.getElementById('issues_view').style.display = 'block';
+				break;
+		}
+	}
+</script>
+{% endblock %}

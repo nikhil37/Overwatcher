@@ -1,0 +1,26 @@
+<h1>All issues</h1>
+<hr><br>
+{% include 'filter_issues.html' %}
+<div style="border: inset gray 1px;height:246px; overflow-y: scroll;">
+	{% for element in issues %}
+		{% if element.progress %}
+			<div class="card filterable_issues" data-progress="completed" data-type="issues" style="padding:5px 5px 0px 5px"><div class="card-body" style="background:lightgreen;border-radius:5px;"> <p class="card-text">{{ element.content }}</p><p class="card-text text-muted">{{ element.t_content }}</p> </div></div>
+		{% else %}
+			<div class="card filterable_issues" data-progress="incomplete" data-type="issues" style="padding:5px 5px 0px 5px"><div class="card-body" style="background:#3800ff78;border-radius:5px;"> <p class="card-text">{{ element.content }}</p><p class="card-text text-muted">{{ element.t_content }}</p> <p class="card-text">{{element.t_content}}</p></div></div>
+		{% endif %}
+	{% endfor %}
+</div>
+{% include 'issues_button.html' %}
+{% include 'add_issue_form.html' %}
+<br><br>
+<hr><br>
+<div style="border: inset gray 1px;height:246px; overflow-y: scroll;">
+	{% for element in staff_issues %}
+		{% if element.progress %}
+			<div class="card filterable_issues" data-progress="completed" data-type="issues" style="padding:5px 5px 0px 5px"><div class="card-body" style="background:lightgreen;border-radius:5px;"> <p class="card-text">{{ element.content }}</p><p class="card-text text-muted">{{ element.t_content }}</p> </div></div>
+		{% else %}
+			<div class="card filterable_issues" data-progress="incomplete" data-type="issues" style="padding:5px 5px 0px 5px"><div class="card-body" style="background:#3800ff78;border-radius:5px;"> <p class="card-text">{{ element.content }}</p><p class="card-text text-muted">{{ element.t_content }}</p> </div></div>
+		{% endif %}
+	{% endfor %}
+</div>
+

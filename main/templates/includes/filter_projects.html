@@ -1,0 +1,44 @@
+<select onclick="filter_project(this)" class="form-control">
+	<option value="all" selected>Sort by progress</option>
+	<option value="all">All</option>
+	<option value="Yet to start">Yet to start</option>
+	<option value="In Progress">In Progress</option>
+	<option value="On-Hold">On-Hold</option>
+	<option value="Testing">Testing</option>
+	<option value="Under Review">Under Review</option>
+	<option value="Completed">Completed</option>
+	<option value="Fixing bugs">Fixing bugs</option>
+	<option value="Released">Released</option>
+</select>
+<script type="text/javascript">
+	function filter_project(event) {
+		objs = document.getElementsByClassName('filterable_projects');
+		if (event.value != 'all') 
+		{
+			for(i=0;i<objs.length;++i)
+			{
+				if (event.value != objs[i].dataset['progress'])
+				{
+					objs[i].style.display = 'none';
+				}
+				else
+				{
+					objs[i].style.display = 'block';
+				}
+			}
+		}
+		else
+		{
+			for(i=0;i<objs.length;++i)
+			{
+				objs[i].style.display = 'block';
+			}
+
+		}
+	}
+	document.addEventListener('DOMContentLoaded',() => {
+		ops = document.getElementsByTagName('select');
+		// for(i=0;i<ops.length;++i)
+		// 	ops[i].click();
+	});
+</script>
